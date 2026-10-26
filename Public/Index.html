@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Neuralix AI</title>
+<meta name="description" content="Neuralix AI: a futuristic AI chatbot. Chat free every day, or go Premium with GCash.">
+<meta name="theme-color" content="#07040F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="nxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C4B5FD"/><stop offset=".55" stop-color="#A855F7"/><stop offset="1" stop-color="#F0ABFC"/></linearGradient>
+    <symbol id="nx-mark" viewBox="0 0 32 32">
+      <path d="M8 24.5V8.5l16 15V8.5" fill="none" stroke="url(#nxg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="8" cy="8" r="2.8" fill="#DDD6FE"/><circle cx="24" cy="24" r="2.8" fill="#F5D0FE"/><circle cx="16" cy="16" r="1.6" fill="#fff"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="boot" id="boot"><div class="orb" aria-label="Loading Neuralix"></div></div>
+
+<!-- Log in / Sign up -->
+<main class="auth" id="authView" hidden>
+  <div class="beam" aria-hidden="true"></div>
+  <div class="auth-wrap">
+    <section class="auth-hero">
+      <div class="brand"><svg aria-hidden="true"><use href="#nx-mark"/></svg><span class="brand-name">Neuralix<em>AI</em></span></div>
+      <h1>Your futuristic AI, <span>ready when you are</span></h1>
+      <p>Ask anything, analyze images and keep every conversation. Start free, upgrade with GCash when you want more.</p>
+      <ul class="perks">
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Unlimited messages every day</li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>10 free image uploads a day</li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Your chat history, saved</li>
+        <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Premium via GCash</li>
+      </ul>
+    </section>
+    <section class="auth-card">
+      <h2 id="authTitle">Welcome back</h2>
+      <p class="sub" id="authSub">Log in to continue your chats.</p>
+      <div class="seg" role="group" aria-label="Account">
+        <button type="button" id="tabLogin" aria-pressed="true">Log in</button>
+        <button type="button" id="tabSignup" aria-pressed="false">Create account</button>
+      </div>
+      <form id="authForm" novalidate>
+        <div class="field" id="nameField" hidden><label for="authName">Name</label><input id="authName" autocomplete="name" maxlength="60" placeholder="Juan Dela Cruz"></div>
+        <div class="field"><label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="email" maxlength="200" placeholder="you@email.com"></div>
+        <div class="field"><label for="authPass">Password</label><input id="authPass" type="password" autocomplete="current-password" maxlength="128" placeholder="At least 8 characters"></div>
+        <p class="form-err" id="authErr" role="alert"></p>
+        <button class="btn-grad" id="authSubmit" type="submit">Log in</button>
+      </form>
+      <p class="auth-foot">By continuing you agree to use Neuralix responsibly.</p>
+    </section>
+  </div>
+</main>
+
+<!-- App -->
+<div class="app" id="appView" hidden>
+  <aside class="side" id="side" aria-label="Chats">
+    <div class="brand"><svg aria-hidden="true"><use href="#nx-mark"/></svg><span class="brand-name">Neuralix<em>AI</em></span></div>
+    <button class="btn-new" id="newChat" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New chat</button>
+    <nav class="hist" id="hist" aria-label="Chat history"></nav>
+    <div class="plan-card" id="planCard"></div>
+    <button class="admin-link" id="adminLink" type="button" hidden><span>Owner console</span></button>
+    <div class="acct">
+      <div class="avatar" id="avatar" aria-hidden="true">N</div>
+      <div class="acct-txt"><b id="acctName"></b><span id="acctEmail"></span></div>
+      <button class="icon-btn" id="logoutBtn" type="button" aria-label="Log out"><svg class="i" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg></button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main class="stage" id="stage">
+    <header class="top">
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open chats"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+      <div class="model-wrap">
+        <button class="model-btn" id="modelBtn" type="button" aria-haspopup="menu" aria-expanded="false"><span id="modelName">Neuralix Core</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="model-menu" id="modelMenu" role="menu" hidden></div>
+      </div>
+      <div class="top-r">
+        <button class="icon-btn" id="personaBtn" type="button" aria-label="Custom instructions"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></button>
+        <button class="plan-badge" id="planBadge" type="button" data-act="pricing">Free</button>
+      </div>
+    </header>
+
+    <div class="feed" id="feed">
+      <div class="feed-inner">
+        <section class="welcome" id="welcome">
+          <div class="orb" aria-hidden="true"></div>
+          <h1 id="hello">Hello, I'm <span>Neuralix</span></h1>
+          <p>Ask me anything, drop in an image for me to analyze, or start with one of these.</p>
+          <div class="starters" id="starters">
+            <button class="starter" type="button" data-q="Explain how solar panels turn sunlight into electricity, in simple terms."><small>Explain</small><span>How solar panels turn sunlight into electricity</span></button>
+            <button class="starter" type="button" data-q="Write 3 catchy Facebook captions for my milk tea shop's new brown sugar flavor."><small>Write</small><span>Captions for my milk tea shop's new flavor</span></button>
+            <button class="starter" type="button" data-q="Plan a 3-day budget trip to Siargao for two people, with estimated costs in pesos."><small>Plan</small><span>A 3-day budget trip to Siargao for two</span></button>
+            <button class="starter" type="button" data-q="Make me a 7-day study plan for a big exam, 2 hours a day, with review and rest days."><small>Study</small><span>A 7-day study plan, 2 hours a day</span></button>
+          </div>
+        </section>
+        <div class="msgs" id="msgs" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="dock">
+      <form class="dock-inner" id="composer" autocomplete="off">
+        <div class="thumbs" id="thumbs"></div>
+        <div class="box" id="box">
+          <div class="attach">
+            <button class="icon-btn" id="attachBtn" type="button" aria-label="Upload image"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/></svg></button>
+            <input type="file" id="fileIn" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden>
+          </div>
+          <label class="sr" for="input">Message Neuralix</label>
+          <textarea id="input" rows="1" placeholder="Message Neuralix…"></textarea>
+          <button class="send" id="sendBtn" type="submit" aria-label="Send message"><svg class="i" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+          <button class="send stop" id="stopBtn" type="button" aria-label="Stop answer" hidden><svg class="i" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor" stroke="none"/></svg></button>
+        </div>
+        <div class="meta" id="meta"></div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- Plans -->
+<section class="pricing" id="pricing" hidden aria-label="Neuralix plans">
+  <div class="pr-frame">
+    <div class="beam" aria-hidden="true"></div><div class="stars" aria-hidden="true"></div>
+    <button class="icon-btn pr-close" type="button" data-close="pricing" aria-label="Close plans"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="pr-head">
+      <span class="pill"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l2.2 5.6L20 9.5l-4.4 3.9L17 19l-5-3-5 3 1.4-5.6L4 9.5l5.8-.9z"/></svg>Plans</span>
+      <h2>Flexible Plans for Every Mind</h2>
+      <p>Chat free every day. Upgrade to Premium for every model, unlimited images and answers shaped to you.</p>
+      <div class="bill"><b id="billM">Monthly</b><button class="switch" id="billSwitch" type="button" role="switch" aria-checked="false" aria-label="Bill yearly"></button><span id="billA">Yearly</span><span class="off-tag" id="offTag">20% OFF</span></div>
+    </div>
+    <div class="plans">
+      <article class="plan">
+        <div class="tile"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+        <h3>Free</h3>
+        <p class="plan-desc">For everyday questions, quick help and trying things out.</p>
+        <div class="price"><strong>₱0</strong><span>forever</span></div>
+        <div class="bill-note">No payment needed</div>
+        <div class="feat-h">Features:</div>
+        <ul class="feats">
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Unlimited messages per day</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Neuralix Core (basic AI model)</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Chat history</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span id="freeImgFeat">10 image uploads per day</span></li>
+        </ul>
+        <button class="btn-line" id="freeBtn" type="button" disabled>Current plan</button>
+      </article>
+      <article class="plan featured">
+        <div class="tile"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l2.2 5.6L20 9.5l-4.4 3.9L17 19l-5-3-5 3 1.4-5.6L4 9.5l5.8-.9z"/></svg></div>
+        <h3>Premium</h3>
+        <p class="plan-desc">Every model and feature unlocked, with no image limits.</p>
+        <div class="price"><strong id="prPrice">₱199</strong><span>/month</span></div>
+        <div class="bill-note" id="prNote">Billed monthly via GCash</div>
+        <div class="feat-h">Features:</div>
+        <ul class="feats">
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Everything in Free</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Neuralix Nova and Ultra advanced models</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Unlimited image uploads and analysis</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Unlimited chats and full history</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Custom instructions</li>
+          <li><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Longer, more detailed answers</li>
+        </ul>
+        <button class="btn-grad" id="premBtn" type="button">Upgrade with GCash</button>
+      </article>
+    </div>
+    <div class="how" aria-label="How GCash payment works">
+      <div><b>1</b><span><strong>Choose Premium</strong>Monthly or yearly</span></div>
+      <div><b>2</b><span><strong>Pay with GCash</strong>On the secure PayMongo page</span></div>
+      <div><b>3</b><span><strong>Premium turns on</strong>Automatically, right after payment</span></div>
+    </div>
+    <p class="pr-foot">Prices in Philippine pesos. Neuralix never asks for your GCash MPIN or OTP.</p>
+  </div>
+</section>
+
+<!-- Payment confirmation after returning from GCash -->
+<div class="modal" id="confirm" hidden role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="sheet">
+    <div class="status" id="confirmBody"></div>
+  </div>
+</div>
+
+<!-- Upgrade nudge -->
+<div class="modal" id="nudge" hidden role="dialog" aria-modal="true" aria-labelledby="nudgeTitle">
+  <div class="sheet nudge">
+    <div class="sheet-h"><div class="nudge-ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l2.2 5.6L20 9.5l-4.4 3.9L17 19l-5-3-5 3 1.4-5.6L4 9.5l5.8-.9z"/></svg></div><button class="icon-btn" type="button" data-close="nudge" aria-label="Close"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <h3 id="nudgeTitle"></h3>
+    <p id="nudgeBody"></p>
+    <div class="btn-pair"><button class="btn-grad" type="button" id="nudgeGo">See Premium</button><button class="btn-line" type="button" data-close="nudge">Not now</button></div>
+  </div>
+</div>
+
+<!-- Custom instructions -->
+<div class="modal" id="persona" hidden role="dialog" aria-modal="true" aria-labelledby="personaTitle">
+  <div class="sheet">
+    <div class="sheet-h"><div><h3 id="personaTitle">Custom instructions</h3><p>Neuralix follows these in every chat.</p></div><button class="icon-btn" type="button" data-close="persona" aria-label="Close"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="field">
+      <label for="personaIn">How should Neuralix answer you?</label>
+      <textarea id="personaIn" maxlength="1500" placeholder="I'm a nursing student in Cebu. Explain things simply, use Taglish, and end with a 3-question quiz."></textarea>
+      <small id="personaCount">0 / 1500</small>
+    </div>
+    <div class="btn-pair"><button class="btn-grad" type="button" id="personaSave">Save instructions</button></div>
+  </div>
+</div>
+
+<!-- Owner console -->
+<div class="modal" id="admin" hidden role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+  <div class="sheet wide">
+    <div class="sheet-h"><div><h3 id="adminTitle">Owner console</h3><p>Members, Premium and GCash revenue.</p></div><button class="icon-btn" type="button" data-close="admin" aria-label="Close"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="stats" id="adStats"></div>
+    <section class="ad-sec">
+      <h4>Give or remove Premium</h4>
+      <p>For refunds, promos, testers or GCash payments you received outside the website.</p>
+      <form id="grantForm" novalidate>
+        <div class="grant-row">
+          <div class="field"><label for="grantEmail">Member email</label><input id="grantEmail" type="email" placeholder="member@email.com"></div>
+          <div class="field"><label for="grantDays">Days</label><input id="grantDays" class="mono" inputmode="numeric" value="30" maxlength="4"></div>
+        </div>
+        <p class="form-err" id="grantErr" role="alert"></p>
+        <div class="grant-actions"><button class="btn-grad" type="submit">Give Premium</button><button class="btn-line" type="button" id="revokeBtn">Remove Premium</button></div>
+      </form>
+    </section>
+    <section class="ad-sec"><h4>Recent GCash payments</h4><p>Paid payments turn Premium on automatically.</p><div id="adPayments"></div></section>
+    <section class="ad-sec"><h4>Newest members</h4><p>The 50 most recent sign-ups.</p><div id="adUsers"></div></section>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/app.js" type="module"></script>
+</body>
+</html>
